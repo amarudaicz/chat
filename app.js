@@ -32,6 +32,7 @@ wss.on("connection", (ws) => {
 
 console.log('SERVER READY', wss);
 
-server.listen(process.env.PORT || 3000, function() {
-    console.log((new Date()) + ' Server is listening on port 8080');
+const PORT = process.env.PORT || 3000
+server.listen(PORT, function() {
+    console.log((new Date()) + ' Server is listening on ', PORT);
 });
