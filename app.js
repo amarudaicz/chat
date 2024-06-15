@@ -6,17 +6,8 @@ const server = createServer(function(request, response) {
     response.end();
 });
 
-server.listen(process.env.PORT || 3000, function() {
-    console.log((new Date()) + ' Server is listening on port 8080');
-});
 
-server.on('request', (req, res) => {
-    res.writeHead(200)
-    res.end('asd')
-})
-
-
-const wss = new WebSocket.server({httpServer:server});
+const wss = new WebSocket.server({httpServer:server, autoAcceptConnections:true});
 const clients = new Set();
  
 wss.on("connection", (ws) => {
@@ -41,3 +32,6 @@ wss.on("connection", (ws) => {
 
 console.log('SERVER READY', wss);
 
+server.listen(process.env.PORT || 3000, function() {
+    console.log((new Date()) + ' Server is listening on port 8080');
+});
