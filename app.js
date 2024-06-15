@@ -1,8 +1,19 @@
-const WebSocket = require("ws");
+const WebSocket = require('websocket');
+const {createServer} = require('node:http')
 
-const wss = new WebSocket.Server({ port: process.env.PORT || 3000 });
+const server = createServer(function(request, response) {
+    response.writeHead(404);
+    response.end();
+});
+
+server.listen(process.env.PORT || 3000, function() {
+    console.log((new Date()) + ' Server is listening on port 8080');
+});
+
+
+const wss = new WebSocket.server({httpServer:server});
 const clients = new Set();
-
+ 
 wss.on("connection", (ws) => {
   console.log("Nuevo cliente conectado");
   clients.add(ws);
