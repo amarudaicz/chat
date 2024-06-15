@@ -10,6 +10,11 @@ server.listen(process.env.PORT || 3000, function() {
     console.log((new Date()) + ' Server is listening on port 8080');
 });
 
+server.on('request', (req, res) => {
+    res.writeHead(200)
+    res.end('asd')
+})
+
 
 const wss = new WebSocket.server({httpServer:server});
 const clients = new Set();
