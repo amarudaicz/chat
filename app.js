@@ -12,15 +12,13 @@ wss.on("connection", (ws) => {
   console.log("Nuevo cliente conectado");
   clients.add(ws);
 
-  ws.on("message", (message) => {
-    console.log(`Recibido: ${message}`);
-
-    clients.forEach((client) => {
+  ws.on('message', message => {
+    const data = JSON.parse(message);
+    wss.clients.forEach(client => {
       if (client.readyState === WebSocket.OPEN) {
-        client.send(message);
+        client.send(JSON.stringify({ username: data.username, message: data.message }));
       }
     });
-
   });
 
   ws.on("close", () => {
@@ -29,4 +27,3 @@ wss.on("connection", (ws) => {
 });
 
 console.log('SERVER READY', wss);
-
